@@ -26,8 +26,13 @@ body {
 h1 {
 	animation: neon1 1.5s ease-in-out infinite alternate;
  text-align: center;
+
 }
 
+.createForm{
+	padding-top: 50px;
+	margin-top: 20px;
+}
 
 
 hr{

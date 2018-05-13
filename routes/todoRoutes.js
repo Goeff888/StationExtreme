@@ -1,18 +1,32 @@
 var express = require ("express");
 var router = express.Router();
-
+var promise = require('bluebird');
 var dBTodo = require("../models/todo");
 var dBTasks = require("../models/tasks");
+var mongoose = require("mongoose");
+promise.promisifyAll(mongoose);
 //INDEX ROUTES###########################
 //Anzeige aller Aufgaben
 router.get("/todo", function(req, res){
- dBTodo.find({}, function(err, entries){
+ promise.props({
+     todo:       dBTodo.find({}).execAsync(),
+     tasks:   dBTasks.find({}).execAsync(),
+   })
+   .then(function(results) {
+     res.render ("todo/index", results);
+   })
+   .catch(function(err) {
+     res.send(500); // oops - we're even handling errors!
+     console.log(err);
+   });
+
+ /*dBTodo.find({}, function(err, entries){
   if(err){
    res.render("error", {error: err});
   }else{
     res.render ("todo/index", {todo: entries});
   }
- }); 
+ }*);*/ 
 });
 //NEW ROUTES###########################
 //Anzeige der Seite für neuen Eintrag 

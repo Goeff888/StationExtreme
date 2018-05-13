@@ -13,44 +13,47 @@
 <h1>To-Do Liste Bearbeiten</h1>
 <hr>
   <div class="row">
-    <div class="task">
-     <form action="/todo" method="post">
-          <input type="text" class="newProject" name="todo[project]" value="<%= todo.project %>">
+    <div class="col-3">
+      <div class="task">
+       <form action="/todo" method="post">
+            <input type="text" class="newProject" name="todo[project]" value="<%= todo.project %>">
+            <hr>
+            Beschreibung:
+            <input type="text" class="newTask" name="todo[description]" value="<%= todo.description %>">
+            Ergebnis:
+            <input type="text" class="newTask" name="todo[result]" value="<%= todo.result %>">
+            <p><input type="submit" ></p>
+        </form>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="task">
+          <h3>Aufgaben-Bereich</h3>
           <hr>
-          Beschreibung:
-          <input type="text" class="newTask" name="todo[description]" value="<%= todo.description %>">
-          Ergebnis:
-          <input type="text" class="newTask" name="todo[result]" value="<%= todo.result %>">
-          <p><input type="submit" ></p>
-      </form>
+          <ul class="addedTask">
+            <% for(var i = 0;i < tasks.length; i++){ %>
+              <li><%= tasks[i].task %></li>
+            <% } %>
+          </ul>
+          <input type="text" id="taskName" name="task" placeholder="Neue Aufgabe">
+      </div>
     </div>
-
-    <div class="task">
-        <h3>Aufgaben-Bereich</h3>
-        <hr>
-        <ul class="addedTask">
-          <% for(var i = 0;i < tasks.length; i++){ %>
-            <li><%= tasks[i].task %></li>
-          <% } %>
-        </ul>
-        <input type="text" id="taskName" name="task" placeholder="Neue Aufgabe">
+    <div class="col-3">    
+      <div class="task">
+        <form action="/todo" method="post">
+          <h3>Info</hr>
+          <hr>
+          <input type="text" class="date" name="task[deadline]" placeholder="fällig am">
+          <p class="date">erstellt am:
+            <%= todo.created.getDate() %>.
+            <%= todo.created.getMonth() %>.
+            <%= todo.created.getYear() +1900 %>
+          </p>
+          <p class="date">Anzahl der Aufgaben gesamt:</p>
+          <p class="date">bereits erledigte Aufgaben:</p>
+        </form>
+      </div>
     </div>
- 
-    <div class="task">
-      <form action="/todo" method="post">
-        <h3>Info</hr>
-        <hr>
-        <input type="text" class="date" name="task[deadline]" placeholder="fällig am">
-        <p class="date">erstellt am:
-          <%= todo.created.getDate() %>.
-          <%= todo.created.getMonth() %>.
-          <%= todo.created.getYear() +1900 %>
-        </p>
-        <p class="date">Anzahl der Aufgaben gesamt:</p>
-        <p class="date">bereits erledigte Aufgaben:</p>
-      </form>
-    </div>
-    
     
   </div>
 <a href="/todo">Start</a>
