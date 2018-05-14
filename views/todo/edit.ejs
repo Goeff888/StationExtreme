@@ -19,20 +19,26 @@
             <input type="text" class="newProject" name="todo[project]" value="<%= todo.project %>">
             <hr>
             Beschreibung:
-            <input type="text" class="newTask" name="todo[description]" value="<%= todo.description %>">
+            <textarea class="newTask" name="todo[description]" rows="3" cols="25"><%= todo.description %></textarea>
             Ergebnis:
-            <input type="text" class="newTask" name="todo[result]" value="<%= todo.result %>">
+            <textarea class="newTask" name="todo[result]"  rows="3" cols="25"><%= todo.result %></textarea>>
             <p><input type="submit" ></p>
         </form>
       </div>
     </div>
     <div class="col-6">
-      <div class="task">
-          <h3>Aufgaben-Bereich</h3>
+      <div class="taskEdit">
+          <h3>Aufgaben-Bereich</h3><span id="todoID"><%= todo._id %></span>
           <hr>
-          <ul class="addedTask">
+          <ul class="addedTasksm">
             <% for(var i = 0;i < tasks.length; i++){ %>
-              <li><%= tasks[i].task %></li>
+              
+              <li class="taskListItem">
+                <span class="iconLeft"><i class="fas fa-edit" data-delete="<%= tasks[i]._id %>"></i></span>
+                <%= tasks[i].task %>
+                <span class="iconRight"><i class="fas fa-trash"></i></span>
+              </li>
+              
             <% } %>
           </ul>
           <input type="text" id="taskName" name="task" placeholder="Neue Aufgabe">

@@ -53,14 +53,14 @@ router.get("/todo/:id", function(req, res){
   if(err){
     res.render("error", {error: err});
   }else{
-   //console.log(entries);
+   console.log(entries);
    dBTasks.find({todoID:entries._id},function(err, tasks){
     if(err){
      res.render("error", {error: err});
     }else{
      console.log("id:" + entries._id);
      console.log("tasks:" + tasks);
-     res.redirect("/todo/"+ tasks._id+"/edit");
+     res.redirect("/todo/"+ entries._id+"/edit");
     } 
    });
    

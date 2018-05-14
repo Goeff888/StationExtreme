@@ -16,7 +16,7 @@ var dBTasks = require("../models/tasks");
 router.post("/saveTask",function(req,res){
   console.log("Ajax Route: SaveTask");
   console.log("Task:" + req.body.task);
-  var task = [{task:req.body.task}];
+  var task = [{task:req.body.task,todoID:req.body.todoID}];
   dBTasks.create(task, function(err, newEntry){
    if(err){
     res.render("error", {error: err});

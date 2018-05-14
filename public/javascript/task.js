@@ -1,18 +1,25 @@
-console.log("task.js wird ausgeführt");
+console.log("task.js wird jetzt ausgeführt");
 
+//neuen Eintrag im Aufgabenbereich hinzufügen
 function addTaskbyEnter(e){
   //console.log("Aufgabe hinzufügen");
   //this.focus();e.preventDefault();
    if (e.which === 13){
     //Enter-Event
         var todotext = $(this).val();
-        console.log(todotext);
+        var todoID = document.getElementById("todoID").innerHTML;
+        console.log(todoID);
         $(this).val("");
         $("ul").append("<li>"+ todotext +"<input type='text' name='tasks[task]' value='" +todotext+"' hidden='true'></li>");
-        sendText(todotext);
+        sendText(todotext, todoID);
         //var addTaskForm = document.getElementById("addTaskForm");
         //addTaskForm.addEventListener("keypress", removeDefault);
    }
+}
+//Delete und Edit Elemente in einem task einblenden
+function showElements(e){
+  console.log("Function: showElements");
+  //document.getElementByClassName
 }
 
 //Ausgabe des Keycodes/////
@@ -21,11 +28,11 @@ function retrievekeyCode(e){
   console.log( e.keyCode); 
 }
 
-function sendText(todotext){
+function sendText(text,id){
     $.post("/saveTask",
     {
-        task: todotext,
-        city: "Duckburg"
+        task: text,
+        todoID: id
     },
     function(data, status){
         //console.log("Data: " + data + "\nStatus: " + status);
@@ -34,47 +41,17 @@ function sendText(todotext){
 }
 
 
-function sendText2(todotext){
-  var xhttp = new XMLHttpRequest();
-  var data = "task=" + todotext;
-  //var data = [{"task": todotext}];
-  console.log("Function: sendText");
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log("Hallo");
-   }
-};
-  xhttp.open("POST", "/saveTask", true);
-  xhttp.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-  xhttp.setRequestHeader("Content-type", "application/text/plain");
-  //xhttp.send("fname=Henry&lname=Ford");
-  console.log("todotext auf Clientseite:"+ data);
-  //xhttp.open("POST", "/saveTask", true);
-  xhttp.send(data);
-  
-  //diesen teil prüfen
-  	/*xhr.open('POST', url);
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState>3 && xhr.status==200) { success(xhr.responseText); }
-    };
-    xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send(params);
-    
-    
-  /*var xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-     console.log(this.responseText);
-    }
-  };
-  xhttp.open("GET", "ajax_info.txt", true);
-  xhttp.send(); */ 
+//HOOVER über Listeneintrag
+var tasks = document.getElementsByClassName("taskListItem");
+console.log(tasks.length);
+for (var i = 0; i < tasks.length; i++){
+  tasks[i].addEventListener("mouseover", showElements);
 }
 
 
+//Listeneintrag mit enter hinzufügen
 var addTask = document.getElementById("taskName");//Hier die Klasse Anpassen, auf die das Tastenelement hören soll
 //var addTaskForm = document.getElementById("addTaskForm");
-taskName.addEventListener("keypress", addTaskbyEnter);
+addTask.addEventListener("keypress", addTaskbyEnter);
 
 
