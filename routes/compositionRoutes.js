@@ -15,12 +15,16 @@ function uploadComposition(renderedImage){
  console.log("Funktion:uploadFile");
  console.log(renderedImage);
  var form = new formidable.IncomingForm();
- var oldpath = files.filetoupload.path;
- var newpath = '/C:/Users/Your Name/images/compositions/' + files.filetoupload.name;
- fs.rename(oldpath, newpath, function (err) {
+ form.parse( function (err, fields, files) {
+  var oldpath = files.filetoupload.path;
+  console.log(oldpath);
+  var newpath = '/images/compositions/' + files.filetoupload.name;
+  console.log(newpath);
+  fs.rename(oldpath, newpath, function (err) {
    if (err) throw err;
    res.write('File uploaded and moved!');
    res.end();
+  });
  });
 }
 //INDEX ROUTES###########################
