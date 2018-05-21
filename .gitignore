@@ -8,3 +8,4 @@ node_modules/utils-merge/.npmignore
 node_modules/mquery/node_modules/bluebird/js/release/errors.js
 node_modules/mquery/node_modules/bluebird/js/release/filter.js
 node_modules/mquery/node_modules/bluebird/js/release/join.js
+public/images/*

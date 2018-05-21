@@ -22,6 +22,9 @@
             <textarea class="newTask" name="todo[description]" rows="3" cols="25"><%= todo.description %></textarea>
             Ergebnis:
             <textarea class="newTask" name="todo[result]"  rows="3" cols="25"><%= todo.result %></textarea>>
+            <hr>
+            Termin:
+            <input type="text" class="date" name="task[deadline]" placeholder="fällig am">
             <p><input type="submit" ></p>
         </form>
       </div>
@@ -34,9 +37,14 @@
             <% for(var i = 0;i < tasks.length; i++){ %>
               
               <li class="taskListItem">
-                <span class="iconLeft"><i class="fas fa-edit" data-delete="<%= tasks[i]._id %>"></i></span>
-                <%= tasks[i].task %>
-                <span class="iconRight"><i class="fas fa-trash"></i></span>
+                <span class="iconLeft" data-value="<%= tasks[i]._id %>"><i class="fas fa-edit" ></i></span>
+                  <% if (tasks[i].status == "open"){ %>
+                   <input type="checkbox" class="form-check-input" id="exampleCheck1" > 
+                  <% }else{ %>
+                  <input type="checkbox" class="form-check-input" id="exampleCheck1" checked>
+                  <% } %> 
+                  <%= tasks[i].task %>
+                <span class="iconRight" data-value="<%= tasks[i]._id %>"><i class="fas fa-trash"></i></span>
               </li>
               
             <% } %>
@@ -49,7 +57,7 @@
         <form action="/todo" method="post">
           <h3>Info</hr>
           <hr>
-          <input type="text" class="date" name="task[deadline]" placeholder="fällig am">
+          
           <p class="date">erstellt am:
             <%= todo.created.getDate() %>.
             <%= todo.created.getMonth() %>.

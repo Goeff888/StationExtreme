@@ -10,16 +10,56 @@ function addTaskbyEnter(e){
         var todoID = document.getElementById("todoID").innerHTML;
         console.log(todoID);
         $(this).val("");
-        $("ul").append("<li>"+ todotext +"<input type='text' name='tasks[task]' value='" +todotext+"' hidden='true'></li>");
+        //$("ul").append("<li>"+ todotext +"<input type='text' name='tasks[task]' value='" +todotext+"' hidden='true'></li>");
+        $("ul").append("<li><span class='iconLeft' data-value=''><i class='fas fa-edit'></i></span><input type='checkbox' class='form-check-input' id='exampleCheck1' >" + todotext +"<span class='iconRight' data-value=''><i class='fas fa-trash'></i></span>");         
+                       
         sendText(todotext, todoID);
         //var addTaskForm = document.getElementById("addTaskForm");
         //addTaskForm.addEventListener("keypress", removeDefault);
    }
 }
-//Delete und Edit Elemente in einem task einblenden
+//Maus über TAsk (nur zum Test)
 function showElements(e){
   console.log("Function: showElements");
   //document.getElementByClassName
+}
+
+function deleteTask(e){
+  console.log("Funktion: deleteTask");
+  console.log("this.data-value "+this.getAttribute("data-value"));
+  var id = this.getAttribute("data-value");
+  $.post("/task/" + id+  "?_method=DELETE" ,
+  //$.post("/deleteTask/",
+    {
+        data: id   
+    },
+    function(daten, status){
+      console.log("Callback");
+      location.reload(true);
+    });
+}
+
+//Funktion zum Durchstreichen des Textes und Ändern des Status
+function setStatusReady(e){
+  console.log("CheckBox Ausgewählt");
+  var status;
+  if (this.checked == true){
+    console.log("ausgewählt");
+    status = "finished";
+    
+  }else{
+    console.log("leer");
+    status = "open";
+  }
+  console.log(status);
+  $.post("/updateStatus/"+ id,
+    {
+        data: id   
+    },
+    function(daten, status){
+      console.log("Callback");
+      //location.reload(true);
+    });
 }
 
 //Ausgabe des Keycodes/////
@@ -48,10 +88,20 @@ for (var i = 0; i < tasks.length; i++){
   tasks[i].addEventListener("mouseover", showElements);
 }
 
+//Delete Task Icon
+var deleteBtns = document.getElementsByClassName("iconRight");
+for (var j = 0; j < deleteBtns.length; j++){
+  deleteBtns[j].addEventListener("mouseup",deleteTask);
+}
 
 //Listeneintrag mit enter hinzufügen
 var addTask = document.getElementById("taskName");//Hier die Klasse Anpassen, auf die das Tastenelement hören soll
 //var addTaskForm = document.getElementById("addTaskForm");
 addTask.addEventListener("keypress", addTaskbyEnter);
 
+//Check Box Status Tasks
+var statusTask = document.getElementsByClassName("form-check-input");
+for (var k = 0; k < statusTask.length;k++){
+  statusTask[k].addEventListener("change", setStatusReady);
+}
 
