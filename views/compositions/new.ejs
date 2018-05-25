@@ -23,7 +23,7 @@
         <ul>
           
           <% for (var i = 0; i < categories.length;i++){ %>
-          <% console.log(categories.length); %>
+          
             <li><%= categories[i].category %> </li>
          <% } %>
         </ul>
@@ -43,17 +43,20 @@
       <div class="container">
        
           <h1> Neues Blender File</h1>
-          <div style="width :30%; margin: 50px auto;">
-            <form action="#" method="post" name="newFile">
+          <div >
+            <form action="/composition/new" method="post" encType="multipart/form-data" id="newForm">
               <div class="form-group">
-                <input class="form-control" type="text" name="composition[name]" placeholder="Name">                
+                <input class="form-control" type="text" name="name" placeholder="Name">                
               </div>
               <div class="form-group">
+                <div id="renderDropzone">
+                  <input type="file" id="fileLoader" name="renderedImage" title="load Image">
+                  Bild hier reinziehen oder klicken
+                </div>
                 
-                <input type="file" name="composition[renderedImage]" placeholder="gerenderte Datei">
               </div>
               <div class="form-group">
-                <input class="form-control" type="text" name="composition[description]" placeholder="Beschreibung">  
+                <input class="form-control" type="text" name="description" placeholder="Beschreibung">  
               </div>
               <div class="form-group">
                 <button class="btn btn-lg btn-primary btn-block" type="submit" id="sendBtn">Speichern</button>  

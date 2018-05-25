@@ -1,7 +1,7 @@
 var express = require ("express");
 var router = express.Router();
 var promise = require('bluebird');
-//var dBTodo = require("../models/todo");
+var dBTodo = require("../models/todo");
 var dBTasks = require("../models/comments");
 var mongoose = require("mongoose");
 promise.promisifyAll(mongoose);

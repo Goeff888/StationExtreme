@@ -32,32 +32,35 @@
     </div>
 
     <div class="col-md-8">
-      <img class="img-responsive img-composition" src="<%= composition.image %>">
-        <div class="caption">
-          
-          <h4><a><%= composition.name %></a></h2>
-          <p><%= composition.description %></p>
-        <div class="well">
-          <div class="text-right">
-            <a class="btn btn-success" href="/composition/<%= composition._id%>/comments/new">Neuer Kommentar</a>          
-        </div>   
-    </div>
-
-          
-          <% composition.comments.forEach(function(comment){ %>
-            
-         
-       <div class ="row">
-        <div class="col-md-8">
-          <%= comment.author%>
-          <span class="pull-right">10 days ago</span>
-          <p><%= comment.text %></p>
+      <img class="img-responsive img-composition" src="/images/compositions/<%= composition.image %>">
+      <div class="caption">
+        <h4><%= composition.name %></h2>
+        <p><%= composition.description %></p>
+        <% composition.comments.forEach(function(comment){ %>    
+        <div class ="row">
+         <div class="col-md-8">
+           <%= comment.author%>
+           <span class="pull-right">10 days ago</span>
+           <p><%= comment.text %></p>
+         </div>
         </div>
-      </div>
         <% });%>
-      </div>
-     </div>
-  
+        </div>
+        <p>
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Neuer Kommentar
+          </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body">
+            <form method="post" action="/composition/<%=composition._id  %>/comments">
+              <textarea id="newComment" rows="5" cols="100"></textarea>
+              <button class="btn btn-primary" type="submit">Speichern</button>
+            </form>
+          </div>
+        </div>
+    </div>
+    
     <div class="col-md-2">
         <h2>Links</h2>
         <a href="/composition/new">Neues Bild hinzufügen</a>

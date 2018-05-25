@@ -1,7 +1,10 @@
 var express = require ("express");
 var router = express.Router();
+var http = require('http');
 var promise = require('bluebird');
-var formidable = require('formidable');
+var path = require('path');
+const fileUpload = require('express-fileupload');
+//var formidable = require('formidable');
 var fs = require('fs');
 var dBComposition = require("../models/composition");
 var dBTutorials = require("../models/tutorials");
@@ -10,23 +13,10 @@ var dbCategories = require("../models/categories");
 //var dBTasks = require("../models/tasks");
 var mongoose = require("mongoose");
 //promise.promisifyAll(mongoose);
+router.use(fileUpload());
+router.use(express.static(path.join(__dirname, 'public')));
+router.use(express.static("public"));
 
-function uploadComposition(renderedImage){
- console.log("Funktion:uploadFile");
- console.log(renderedImage);
- var form = new formidable.IncomingForm();
- form.parse( function (err, fields, files) {
-  var oldpath = files.filetoupload.path;
-  console.log(oldpath);
-  var newpath = '/images/compositions/' + files.filetoupload.name;
-  console.log(newpath);
-  fs.rename(oldpath, newpath, function (err) {
-   if (err) throw err;
-   res.write('File uploaded and moved!');
-   res.end();
-  });
- });
-}
 //INDEX ROUTES###########################
 //Anzeige aller Aufgaben
 router.get("/composition", function(req, res){
@@ -85,19 +75,56 @@ router.get("/composition/new", function(req, res){
 //Hinzufügen eines neuen Bildes
 router.post("/composition/new",function(req,res){
     console.log("Post Route für composition");
-    dBComposition.create(req.body.composition, function(err, newEntry){
-    if(err){
-     console.log(err);
-     res.redirect("/composition");
-    }else{
-    //console.log(newEntry);
-    uploadComposition(req.body.composition.renderedImage);
-     res.redirect("/composition");
-    }
+    
+    var composition = [{name:req.body.name, image:req.files.renderedImage.name,description:req.body.name}];
+    // Datei hochladen
+    if (!req.files)
+      return res.status(400).send('No files were uploaded.');
+    // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+    let sampleFile = req.files.renderedImage;
+    console.log(req.body.name);
+    console.log(sampleFile.name);
+    // Use the mv() method to place the file somewhere on your server
+    sampleFile.mv('public/images/compositions/' + sampleFile.name, function(err) {
+    if (err)
+      return res.status(500).send(err);
+    dBComposition.create(composition, function(err, newEntry){
+     if(err){
+      res.render("error", {error: err});
+      res.redirect("/composition");
+     }else{
+     console.log(newEntry);
+     
+      res.redirect("/composition");
+     }
+    });
    });
- 
+   
+    //Datenbankeintrag erzeugen
+
+    //Show-Seite laden
+
  });
-//Hinzufügen eines neues Tutorial
+
+router.post("/upload",function(req,res){
+    console.log("Post Route:  Upload");
+  if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+ 
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  let sampleFile = req.files.renderedImage;
+ console.log(req.body.name);
+ console.log(sampleFile.name);
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv('public/images/compositions/' + sampleFile.name, function(err) {
+    if (err)
+      return res.status(500).send(err);
+ 
+    res.send('File uploaded!');
+  });
+
+ });
+//Hnzufügen eines neues Tutorial
 /*router.post("/tutorials/new",function(req,res){
     console.log("Post Route für neues Tutorial");
     dBTutorials.create(req.body.tutorials, function(err, newEntry){
