@@ -15,68 +15,68 @@
 
   <div class="row">
     <div class="col-md-2">
-      <p class="lead">Kategorien</p>
-      <div class="list-group">
-        <li class="list-group-item active">Liste in der </li>
-        <li class="list-group-item">Datenbank erstellen</li>
-        <li class="list-group-item">und mit</li>
-        <li class="list-group-item">Posts verknüpfen</li>        
-      </div>
-
-      <h2>Tutorials</h2>
-      <ul>
-        <li>Post </li>
-        <li>aus der anotherberrydb</li>
-        <li>und Bildern aus PPT</li>
-       </ul>
+      <% include partials/category %>
+      <hr>
+      <% include partials/magazin %>
     </div>
 
     <div class="col-md-8">
-      <img class="img-responsive img-composition" src="/images/compositions/<%= composition.image %>">
+      <div class="container">
+        <a href="/composition" class="btn btn-primary">zur Startseite</a>
+        <a href="/composition" class="btn btn-primary">vorheriges Bild</a>
+        <a href="/composition" class="btn btn-primary">nächstes Bild</a>
+      </div>
+      <img class="img-responsive img-composition imgComp" src="/images/compositions/<%= composition[0].image %>">
       <div class="caption">
-        <h4><%= composition.name %></h2>
-        <p><%= composition.description %></p>
-        <% composition.comments.forEach(function(comment){ %>    
+        <h4>
+          <span><%= composition[0].name %></span>
+          <span class="date">
+            <%= composition[0].created.getDate() %>.
+            <%= composition[0].created.getMonth() %>.
+            <%= composition[0].created.getYear() +1900 %>
+          </span>
+        </h4>
+        <p class="compText"><%= composition[0].description %></p>
+        <% comments.forEach(function(comment){ %>    
         <div class ="row">
          <div class="col-md-8">
            <%= comment.author%>
-           <span class="pull-right">10 days ago</span>
-           <p><%= comment.text %></p>
+       
+            <span class="date ">
+              <%= comment.created.getDate() %>.
+              <%= comment.created.getMonth() %>.
+              <%= comment.created.getYear() +1900 %>
+            </span>
+           <p class="compText"><%= comment.comment %></p>
          </div>
         </div>
         <% });%>
         </div>
+      <form method="post" action="/composition/<%= composition[0]._id %>?_method=DELETE""
         <p>
-          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseComment" aria-expanded="false" aria-controls="collapseComment">
             Neuer Kommentar
           </button>
+          <a href="/composition/<%= composition[0]._id %>/edit" class="btn btn-primary">
+            Bild bearbeiten
+          </a>
         </p>
-        <div class="collapse" id="collapseExample">
+      </form>
+        <div class="collapse" id="collapseComment">
           <div class="card card-body">
-            <form method="post" action="/composition/<%=composition._id  %>/comments">
-              <textarea id="newComment" rows="5" cols="100"></textarea>
-              <button class="btn btn-primary" type="submit">Speichern</button>
+            <form method="post" action="/composition/<%= composition[0]._id  %>/comments">
+              <textarea id="newComment" rows="5" cols="100" name="comment[comment]"></textarea>
+              <button class="btn btn-primary" name="comment[compositionID]" value="<%=composition[0]._id  %>" type="submit">Speichern</button>
             </form>
           </div>
         </div>
     </div>
     
     <div class="col-md-2">
-        <h2>Links</h2>
-        <a href="/composition/new">Neues Bild hinzufügen</a>
-        <ul>
-          <li>Liste in der </li>
-          <li>Datebank erstellen</li>
-          <li>und mit</li>
-          <li>Projekt verknüpfen</li>
-        </ul>
-        <h2>externe Tutorials</h2>
-        <ul>
-          <li>Links </li>
-          <li>kategorisieren</li>
-        </ul>
+      <% include partials/history %>
+      <hr>
+      <% include partials/tutorialsNew %>  
     </div>
-  </div>
 
 
 <div class="footer">Trademark 2018 Groefics</div>

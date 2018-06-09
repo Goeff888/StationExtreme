@@ -11,7 +11,7 @@
 </head>
 <body>
 <% include ../partials/navbarTop %>
-<h1>Post Editor</h1>
+<h1>Content Editor</h1>
 <div class="row" id="center">
   <% include partials/cmsLeft %>
 
@@ -46,46 +46,90 @@
         <a href="#" data-command='p'>P</a>
         <a href="#" data-command='subscript'><i class='fa fa-subscript'></i></a>
         <a href="#" data-command='superscript'><i class='fa fa-superscript'></i></a>
-        <button id="switchCode" name="Code">Code</button>
+        <a href="#" data-command='switchCode'><i class='fa fa-edit'></i></a>
     </div>
-    <form action="#" method="POST" id="formContent">
-      <div id="editor" name="post[content]" contenteditable>
-          <% console.log(cmsPost); %>
-          <%= cmsPost[0].content %>
+    <form action="/cmsPost/<%= cmsPost[0]._id %>/edit?_method=PUT %>" method="POST" id="formContent">
+      <div class="d-flex flex-row-reverse">
+        <button type="button" class="btn btn-secondary" id="html" value="checked" >PLAIN</button>
+        <button type="button" class="btn btn-secondary" id="plain" value="unchecked" disabled>HTML</button> 
       </div>
-      <textarea name="post[content]"rows="5" cols="40" id="clipped" hidden="true" ></textarea>
+      <div id="editor" contenteditable>
+          
+      </div>
+      <textarea name="post[content]"rows="5" cols="114" id="clipped"><%= cmsPost[0].content %></textarea>
+      
       <div class="row">
-        <div class="col-md-4">
-          Erstellt am:
+        <div class="col-md-4 date">
+          Erstellt am: 
+          <%= cmsPost[0].created.getDate() %>.
+          <%= cmsPost[0].created.getMonth() %>.
+          <%= cmsPost[0].created.getYear() +1900 %>
+          <input type="text" value="<%= navigation[0].cms %>" name="post[cmsID]" class="hiddenID">
+        </div>
+        <div class="col-md-4 date">
+           Zuletzt geändert am:
+          <%= cmsPost[0].updated.getDate() %>.
+          <%= cmsPost[0].updated.getMonth() %>.
+          <%= cmsPost[0].updated.getYear() +1900 %>
+           <input type="text" value="<%= navigation[0].cmsUnit %>" name="post[cmsUnitID]" class="hiddenID">
         </div>
         <div class="col-md-4">
-           Zuletzt geändert am:         
-        </div>
-        <div class="col-md-4">
-          <select class="form-control form-control-lg" name="post2[status]" >
+          <select class="form-control form-control-lg" name="post[status]" >
+           <% if(JSON.stringify(cmsPost[0].status).indexOf("neu") >= 0){ %>
+           <option selected>neu</option>
+           <option>in Arbeit</option>
+           <option>veröffentlicht</option>          
+           <% }else if(JSON.stringify(cmsPost[0].status).indexOf("veröffentlicht") >= 0){ %>
            <option>neu</option>
-           <option selected>in Arbeit</option>
-           <option>veröffentlicht</option>
+           <option >in Arbeit</option>
+           <option>selectedveröffentlicht</option>  
+           <% }else if(JSON.stringify(cmsPost[0].status).indexOf("in Arbeit") >= 0){ %>
+           <option>neu</option>
+           <option selected >in Arbeit</option>
+           <option >veröffentlicht</option>
+           <% }else{ %>
+           <% console.log("Status des Posts in der Datenbank nicht erkannt"); %>
+           <% } %>
          </select>         
         </div>
       </div>
-
-      <input type=submit id="savePost">
+      <input type=submit id="savePost"">
     </form>
   </div>
   <div class="col-md-3">
-    <form method="post" action="/new/upload">
-      <div id="dropzone" class="dragShow">Dropzone</div>
+    <form method="post" action="#">
+      <div id="dropzone" class="dragShow">
+        <input type="file" id="fileLoader" name="renderedImage" title="loadImage">
+        Bild hier reinziehen oder klicken
+      </div>
+      
       <div id="list">noch keine Bilder vorhanden</div>
       <input type="submit" id="uploadPic">
     </form>
     <hr>
-  <h3>Beiträge</h3>
-  <form method="post" action="">
-    <input type="text" name=cmsPost[name] placeholder="Neuer Post">
-    <input type="submit">
-  </form>
+  
+
+    <div class="taskEdit">
+      <h3>Kategorien</h2>
+      <hr>
+      <ul>
+        <% for (var i = 0; i < categories.length;i++){ %>
+          <li><%= categories[i].category  %></li>
+       <% } %>
+      </ul>
+      <input type="text" id="newCategory" name="category" placeholder="Neue Kategorie">
+    </div>
+    <hr>
+
   </div>
 </div>
   
-<% include ../partials/footer %>
+<a href="/">Start</a>
+<div class="footer">Trademark 2018 Groefics</div>
+
+<script src="/javascript/jQuery_3_2_1.js"></script>
+<script src="/javascript/bootstrap.js"></script>
+<script src="/javascript/cmsDragndrop.js"></script>
+
+</body>
+</html>

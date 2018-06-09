@@ -46,31 +46,10 @@
         <a href="#" data-command='p'>P</a>
         <a href="#" data-command='subscript'><i class='fa fa-subscript'></i></a>
         <a href="#" data-command='superscript'><i class='fa fa-superscript'></i></a>
-        <button id="switchCode" name="Code">Code</button>
+        <a href="#" data-command='switchCode'><i class='fa fa-edit'></i></a>
+        <button id="switchCode" name="Code" value="code">Code</button>
     </div>
-    <form action="#" method="POST" id="formContent">
-      <div id="editor" name="post[content]" contenteditable>
-          Inhalt aus Variable
-      </div>
-      <textarea name="post[content]"rows="5" cols="40" id="clipped" hidden="true" ></textarea>
-      <div class="row">
-        <div class="col-md-4">
-          Erstellt am:
-        </div>
-        <div class="col-md-4">
-           Zuletzt geändert am:         
-        </div>
-        <div class="col-md-4">
-          <select class="form-control form-control-lg" name="post2[status]" >
-           <option>neu</option>
-           <option selected>in Arbeit</option>
-           <option>veröffentlicht</option>
-         </select>         
-        </div>
-      </div>
-
-      <input type=submit id="savePost">
-    </form>
+    
   </div>
   <div class="col-md-3">
     <form method="post" action="/new/upload">
@@ -79,12 +58,27 @@
       <input type="submit" id="uploadPic">
     </form>
     <hr>
-  <h3>Beiträge</h3>
-  <form method="post" action="">
-    <input type="text" name=cmsPost[name] placeholder="Neuer Post">
-    <input type="submit">
-  </form>
+  
+
+    <div class="taskEdit">
+      <h3>Kategorien</h2>
+      <hr>
+      <ul>
+        <% for (var i = 0; i < categories.length;i++){ %>
+          <li><%= categories[i].category  %></li>
+       <% } %>
+      </ul>
+      <input type="text" id="newCategory" name="category" placeholder="Neue Kategorie">
+    </div>
+    <hr>
+
   </div>
 </div>
   
-<% include ../partials/footer %>
+<a href="/">Start</a>
+<div class="footer">Trademark 2018 Groefics</div>
+<script src="/javascript/jQuery_3_2_1.js"></script>
+<script src="/javascript/cmsDragndrop.js"></script>
+<script src="/javascript/bootstrap.js"></script>
+</body>
+</html>

@@ -21,9 +21,17 @@ h2 {
 
 h3 {
     font-size: 2em;
-    text-align: left;
     margin-left: 1.66%;
     text-align: center;
+}
+
+h4{
+    font-size: 2em;
+    text-align: left;
+    margin-left: 1.66%;
+    padding-left:1.6%;
+    border: 1px solid white;
+    
 }
 
 li {
@@ -38,6 +46,36 @@ hr {
     height: 1px;
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
 }
+
+.compositionModal{
+  color: grey;
+  text-align: center;
+}
+
+.img-composition{  
+  text-align: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+.date{
+  float: right;
+  font-size: 0.5em;
+}
+.comment{
+  color:black;
+}
+
+.gallery{
+  width: 100%;
+  height:200px;
+  background-color: grey;
+  margin:0 0;
+  padding: 0 0;
+}
+
 #fileLoader{
   display:none;
 }
@@ -64,11 +102,16 @@ hr {
   color: white;
   text-align: center;
 }
-.img-composition{
-  width:80%;
-  
-  text-align: center;
+.formFields{
+  width:60%;
+  border:1px solid white;
 }
+.compText{
+  border:solid 1px grey;
+  margin-left: 1.66%;
+  padding-left:0.6%;
+}
+
 
 .thumbnail img{
   width: 100%;
@@ -103,7 +146,9 @@ img {
 
 .jumbotron{
   background-color: black;
-  background-image: url("/images/blender_jumbotron.jpg");
+  background-image: url("/images/blender_logo.png");
+  background-repeat:no-repeat;
+  background-position: center;
 }
 
 

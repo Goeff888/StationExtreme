@@ -12,6 +12,9 @@ var cmsPostRoutes = require("./routes/cmsPostsRoutes");
 var compositionRoutes = require ("./routes/compositionRoutes");
 var tutorialRoutes = require ("./routes/tutorialRoutes");
 var commentRoutes = require ("./routes/commentRoutes");
+var corelRoutes = require ("./routes/corelRoutes");
+var mediaRoutes = require ("./routes/mediaRoutes");
+var pythonRoutes = require ("./routes/pythonRoutes");
 //////MONGO-DATABASE-SCHEMES////////
 
 var app = express();
@@ -37,6 +40,9 @@ app.use(cmsPostRoutes);
 app.use(compositionRoutes);
 app.use(commentRoutes);
 app.use(tutorialRoutes);
+app.use(mediaRoutes);
+app.use(corelRoutes);
+app.use(pythonRoutes);
 //LANDING PAGE
 app.get("/", function(req, res){
  res.render ("index");

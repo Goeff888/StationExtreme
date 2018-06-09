@@ -11,7 +11,7 @@ function addTaskbyEnter(e){
         console.log(todoID);
         $(this).val("");
         //$("ul").append("<li>"+ todotext +"<input type='text' name='tasks[task]' value='" +todotext+"' hidden='true'></li>");
-        $("ul").append("<li><span class='iconLeft' data-value=''><i class='fas fa-edit'></i></span><input type='checkbox' class='form-check-input' id='exampleCheck1' >" + todotext +"<span class='iconRight' data-value=''><i class='fas fa-trash'></i></span>");         
+        $("ul").append("<li><input type='checkbox' class='form-check-input' id='exampleCheck1' >" + todotext +"<span class='iconRight' data-value=''><i class='fas fa-trash'></i></span>");         
                        
         sendText(todotext, todoID);
         //var addTaskForm = document.getElementById("addTaskForm");
@@ -43,23 +43,32 @@ function deleteTask(e){
 function setStatusReady(e){
   console.log("CheckBox Ausgewählt");
   var status;
+  var ckID = this.getAttribute("id");
+  var liID = "li" + ckID.slice(2, ckID.length-1);
+  var liElement = document.getElementById(liID);
+  console.log(liID);
   if (this.checked == true){
-    console.log("ausgewählt");
+    //console.log("ausgewählt");
     status = "finished";
+    console.log("this:"+ this.getAttribute("id"));
+    liElement.style.textDecoration = "line-through";
+    //liElement.style.text-decoration = "line-through",
     
   }else{
     console.log("leer");
     status = "open";
+    console.log("this:"+ this.getAttribute("id"));
+    liElement.style.textDecoration = "none";
   }
   console.log(status);
-  $.post("/updateStatus/"+ id,
+ /* $.post("/updateStatus/"+ id,
     {
         data: id   
     },
     function(daten, status){
       console.log("Callback");
       //location.reload(true);
-    });
+    });*/
 }
 
 //Ausgabe des Keycodes/////

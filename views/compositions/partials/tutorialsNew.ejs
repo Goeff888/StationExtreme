@@ -1,0 +1,54 @@
+<h2>Tutorials</h2>
+    <ul>
+      <% tutorials.forEach(function(tutorial){ %>
+      <li><a href="<%= tutorial.url %>"><%= tutorial.name %></a></li>
+      <%}) %>
+    </ul>
+    
+    <!-- Button trigger modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+      Neues Tutorial
+    </button>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title compositionModal" id="exampleModalLongTitle">Tutorial hinzufügen</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <form method="post" action="/tutorials/new">
+          <div class="modal-body">
+            <div class="form-group">
+              <input class="form-control" type="text" placeholder="Name" name="tutorials[name]">
+            </div>            
+            <div class="form-group">
+                <input class="form-control" type="text" placeholder="URL" name="tutorials[url]">
+            </div>              
+            <div class="form-group">
+               <select class="form-control" name="tutorials[format]">
+                   <option>pdf</option>
+                   <option>video</option>
+               </select>
+            </div>
+            <div class="form-group">
+               <select class="form-control" name="tutorials[category]">
+                   <option>Kurs</option>
+                   <option>Tutorial</option>
+                   <option>Texturen</option>
+                   <option>Modelle</option>
+               </select>
+            </div>                         
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="modalSubmit2">Close</button>
+            <button type="submit" class="btn btn-primary" id="modalSubmit">Save changes</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+</div>
