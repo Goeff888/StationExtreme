@@ -52,7 +52,7 @@
          <% if (JSON.stringify(cms[i]._id) == JSON.stringify(cmsUnit[j].cmsID)){ %>
           <span>
             <button class="btn btnUnitName" type="button" data-toggle="collapse" data-target="#collapse<%= z %>" aria-expanded="false" aria-controls="collapse<%= z %>" draggable="true">
-             <%= cmsUnit[j].name %>
+             <i class="fas fa-sort-amount-down"></i><%= cmsUnit[j].name %>
            </button>
           <button class="btn btnModal" type="button" >
             <span data-toggle="modal" data-target="#unitModal<%=z %>"><i class="fas fa-pen-square"></i></span>
@@ -92,7 +92,7 @@
           <% for (var k=0;k< cmsPost.length;k++,z++){ %>
            <% if (JSON.stringify(cmsUnit[j]._id) == JSON.stringify(cmsPost[k].cmsUnitID)){ %>
           <a href="/cms/<%=cms[i]._id%>/cmsUnit/<%=cmsUnit[j]._id%>/<%=cmsPost[k]._id%>/edit" class="btn btn-primary btnPostName">
-            <%= cmsPost[k].name %>
+            <i class="fas fa-pen-square"></i><%= cmsPost[k].name %>
           </a>
            <% } %>      
           <% z++;} %>
@@ -118,7 +118,7 @@
        <%  z++;} %>
         <p>
           <button class="btn btn-primary btnUnitName" type="button" data-toggle="collapse" data-target="#collapseNewUnit<%= z %>" aria-expanded="false" aria-controls="collapseNewUnit<%= z %>">
-            Neuer Abschnitt
+             <i class="fas fa-calendar-plus"></i>Neuer Abschnitt
           </button>
         </p>
         <div class="collapse" id="collapseNewUnit<%= z %>">

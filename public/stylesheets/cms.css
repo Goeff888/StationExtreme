@@ -120,7 +120,7 @@ span:hover{
 
 .btnDropzone{
   font-size: 10px;
-  visibility:hidden;
+  display: none;
 }
 
 
@@ -135,7 +135,7 @@ span:hover{
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
-  visibility:visible;
+  display: block;;
 }
 
 .btnPostName{
@@ -145,7 +145,7 @@ span:hover{
   border: none;
   color: dimgrey;
   padding: 0px 4px;
-  text-align: right;
+  text-align: left;
   text-decoration: none;
   display: inline-block;
   font-size: 14px;  
@@ -186,7 +186,8 @@ span:hover{
   padding: 0px 00px;
   text-align: center;
   display: inline-block;
-  font-size: 17px; 
+  font-size: 17px;
+  font-weight: 600;
 }
 .btnCMSMain:hover .btnModal{
 	width:70px;
