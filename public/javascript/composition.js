@@ -7,8 +7,13 @@ function openFileDialog(e){
 
 function showSelectedImage(){
   console.log("Funktion Bild anzeigen");
-  var file = document.getElementById("fileLoader");
+  var fileText = document.getElementById("fileText");
+  var file = document.getElementById("fileLoader").files[0];
+  
   console.log("Datei:" + file.name);
+  //bgrd.classList.remove('renderDropzone');
+  fileText.innerHTML = file.name;
+  fileText.style.fontSize = "xx-large";
   //Bild auf der Seite anzeigen
 }
 
@@ -40,6 +45,9 @@ function handleDrop(e){
   //this.innerHTML = e.dataTransfer.getData('text');
   this.style.background="white";
   //this.style.background-image=e.dataTransfer.getData('text');
+   var file = e.dataTransfer.items[0].getAsFile();
+  //console.log("File:" + e.dataTransfer.files[0].path);
+  console.log("Item:" + file);
   console.log("Abgelegt");
 }
 //Formulareinträge prüfen*****************************
@@ -77,14 +85,15 @@ function chkModal() {
 //Überprüfen, ob "neues Bild" korrekt ausgefüllt ist
 function verifyDelete() {
   alert("Wollen Sie das Bild wirklich löschen?");
-var txt;
-var r = confirm("Press a button!");
-if (r == true) {
-    txt = "You pressed OK!";
-} else {
-    txt = "You pressed Cancel!";
-}
-  //return false;
+  var txt;
+  var r = confirm("Press a button!");
+  if (r == true) {
+      txt = "You pressed OK!";
+  } else {
+      txt = "You pressed Cancel!";
+  }
+    //return false;
+  }
 }
 
 //neuen Eintrag erzeugen*****************************
@@ -99,6 +108,7 @@ function saveEntry(category){
       console.log("Callback");
   });
 }
+
 function addCategorybyEnter(e){
   console.log("Kategorie hinzufügen");
   //this.focus();e.preventDefault();
@@ -120,8 +130,8 @@ sendBtn.addEventListener("click", chkModal);
 var addCategory = document.getElementById("newCategory");//Hier die Klasse Anpassen, auf die das Tastenelement hören soll
 addCategory.addEventListener("keypress", addCategorybyEnter);
 //Tutorials
-var modalSave = document.getElementById("modalSubmit2");
-modalSave.addEventListener("click", chkFormular);
+//var modalSave = document.getElementById("modalSubmit2");
+//modalSave.addEventListener("click", chkFormular);
 //Dropzone 
 var dropzone = document.getElementById("renderDropzone");
 dropzone.addEventListener("click", openfileDialog);
@@ -130,16 +140,16 @@ dropzone.addEventListener('dragleave', handleDragLeaveZone, false);
 dropzone.addEventListener('drop', handleDrop, false);
 
 //Datei öffnen Dialog
+//Views: New, Edit
 function openfileDialog() {
     $("#fileLoader").click();
-}
-function openfileDialog() {
-    $("#historyLoader").click();
+    
 }
 var fileDialog = document.getElementById("fileLoader");
 fileDialog.addEventListener('change', showSelectedImage);
 
 //Button Bild löschen
+//Views: Index, Edit
 var deleteBtn = document.getElementById("btnDelete");
 deleteBtn.addEventListener("click", verifyDelete);
 

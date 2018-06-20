@@ -5,4 +5,29 @@
  <img src="/images/winkenderPanda.jpg">
  <img src="/images/winkenderPanda.jpg">
 </div>
-<a href="">Neues Bild hinzufügen oder oben klicken</a>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#historyModal"><i class="fa fa-plus"></i>Aktuelles Bild ersetzen</button>
+
+<!-- Modal zum hinzufügen eines neuen History-Eintrags-->
+<div class="modal fade" id="historyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Neues Bild</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form method="post" action="/composition/<%= composition._id %>">
+        Beschreibung:
+        <textarea rows="4" cols="50" name="history[description]"></textarea>
+        <input type="file" name="history[image]">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+       </form>
+      </div>
+    </div>
+  </div>
+</div>
