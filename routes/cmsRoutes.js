@@ -7,6 +7,8 @@ var router = express.Router();
 var dBCMS = require("../models/cms");
 var dBCMSUnit = require("../models/cmsUnit");
 var dBCMPosts = require("../models/cmsPosts");
+var dBTasks = require("../models/tasks");
+var dBTodos = require("../models/todo");
 var dBCategories = require("../models/categories");
 promise.promisifyAll(mongoose);
 
@@ -24,13 +26,20 @@ function createDate(entriesDateless){
 //INDEX ROUTES###########################
 //Anzeige aller Haupteinträge
 router.get("/cms", function(req, res){
- dBCMS.find({}, function(err, entries){
-  if(err){
-   res.render("error", {error: err});
-  }else{
-    res.render ("cms/index", {todo: entries});
-  }
- }); 
+ console.log("CMS Index Seite");
+ promise.props({
+     cms:       dBCMS.find({},'name').execAsync(),
+     cmsUnit:   dBCMSUnit.find({},'name cmsID').execAsync(),
+     cmsPost:   dBCMPosts.find({},'name cmsUnitID').execAsync(),
+   })
+   .then(function(results) {
+    res.render("cms/index", {cms: results.cms, cmsUnit: results.cmsUnit,cmsPost:results.cmsPost});
+    
+   })
+   .catch(function(err) {
+     res.send(500); // oops - we're even handling errors!
+     console.log(err);
+   });
 });
 //NEW ROUTES###########################
 //Anzeige der Seite für neuen Eintrag 
@@ -40,12 +49,17 @@ router.get("/cms/new", function(req, res){
      cms:       dBCMS.find({},'name').execAsync(),
      cmsUnit:   dBCMSUnit.find({},'name cmsID').execAsync(),
      cmsPost:   dBCMPosts.find({},'name cmsUnitID').execAsync(),
+     tasks:     dBTasks.find({},'name cmsID').execAsync(),
+     todo:      dBTodos.find({},'name cmsID').execAsync(),
      categories:dBCategories.find().execAsync()
    })
    .then(function(results) {
-    console.log("CMS:"+results.cms);
-    console.log("CMSUnit:"+results.cmsUnit);
-     res.render("cms/new", results);
+    //console.log("CMS:"+results.cms);
+    //console.log("CMSUnit:"+results.cmsUnit);
+    //var navigation = {cmsID: req.params.cms};
+    var navigation = {cmsID:req.query.cms};
+    res.render("cms/new", {cms: results.cms, cmsUnit: results.cmsUnit,cmsPost:results.cmsPost,navigation:navigation});
+    
    })
    .catch(function(err) {
      res.send(500); // oops - we're even handling errors!
@@ -62,8 +76,8 @@ router.post("/cms", function(req, res){
    if(err){
     res.render("error", {error: err});
    }else{
-    console.log(newEntry);
-    res.redirect ("cms/new");
+    //console.log(newEntry);
+    res.redirect ("cms/new/?cms="+ newEntry._id);
    }
   });
 });

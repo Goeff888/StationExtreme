@@ -2,29 +2,36 @@ var express = require ("express");
 var router = express.Router();
 var promise = require('bluebird');
 var dBTutorials = require("../models/tutorials");
-//var dBTasks = require("../models/tasks");
+var dBTodo = require("../models/todo");
+//var dBLinks = require("../models/tasks");
+var dbHandler = require ("./dbHandler");
+
 var mongoose = require("mongoose");
 promise.promisifyAll(mongoose);
+
 //INDEX ROUTES###########################
-//Anzeige aller Tutorials
 router.get("/tutorials", function(req, res){
- /*promise.props({
-     todo:    dBTodo.find({}).execAsync(),
-     tasks:   dBTasks.find({}).execAsync(),
+   promise.props({
+    tutorials:   dBTutorials.find().execAsync(),
+    //links:       dBLinks.find({ 'content': 'digital Art' }).execAsync(),
+    todo:        dBTodo.findOne({'result': req.params.id }).execAsync(),//req.body.taskId
+    //magazine:    dbBooks.find({ 'content': 'blender' }).execAsync(),
    })
    .then(function(results) {
-     res.render ("todo/index", results);
+    console.log("Aufruf von dbHandler");
+    console.log(results.tutorials[0]);
+    dbHandler.getTasks(results,res,"tutorials/index");
+     //res.render("painting/index", results);
    })
    .catch(function(err) {
      res.send(500); // oops - we're even handling errors!
      console.log(err);
-   });*/
+   });
 });
 //NEW ROUTES###########################
-//Anzeige der Seite für neues Tutorial 
+
 
 //CREATE ROUTES###########################
-//neuer Eintrag
 router.post("/tutorials/new", function(req, res){
   console.log("Route: Tutorial create");
    dBTutorials.create(req.body.tutorials, function(err, newEntry){

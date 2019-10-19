@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tutorials</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Joti+One" >
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700,700i" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/tutorials.css">
+</head>
+<body>
+
+<% include ../partials/navbarTop %>
+
+  <div class="row">
+    <div class="col-md-2">
+      <h2>Assignemnt</h2>
+      <ul>
+        <li>Hier entsteht eine Auflistung der Todos zu den Assignments im Collapse Style</li>
+
+      </ul>
+      <h2>Verbesserungen</h2>
+      <ul>
+        <li>Hier entsteht eine Auflistung der Todos zu den Verbesserungen </li>
+      </ul>
+    </div>
+  
+ 
+    <div class="col-md-8">
+      <div class="container">
+        <header class="jumbotron">
+          <div class="container">
+            <h1> Alle Tutorials</h1>
+            <p>Meine persönlichen Digital Art Tutorials</p>
+          </div>  
+        </header>
+      </div>
+      <div>
+      <% if(tutorials.length == 0){ %>
+      <div class="accordion" id="accordionExample">    
+        <div class="card">
+          <div class="card-header" id="headingOne">
+              <button class="btn" type="button" >Es sind keine Tutorials vorhanden</button>
+          </div>
+        </div>
+      </div>
+      
+      <% }else{
+          for (var i = 0; i < tutorials.length;i++){ %>
+          <div class="accordion " id="<%= tutorials[i]._id %>">
+          <div class="card " >
+          <div class="card-header " id="heading<%= i %>">
+            
+              <button class="btn" type="button" data-toggle="collapse" data-target="#collapse<%= i %>" aria-expanded="true" aria-controls="collapse<%= i %>">
+                <%= tutorials[i].name %>
+                <%= tutorials[i].weeks %>
+              </button>
+            
+          </div>
+      
+          <div id="collapse<%= i %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div class="card-body">
+              <%= tutorials[i].description %>
+              <% if (!tutorials[i].weeks){ %>
+                noch keine Videodateien vorhanden
+              <% }else{ %>
+              <div class="row">
+                <div class="col-md-12">
+                  <ul >
+                    <% for (j = 1; j <= tutorials[i].weeks;j++){ %>
+                      <li class="weekList">week <%= j %></li>
+                      
+                    <% } %>
+                  </ul>
+                  <video src="/images/Bildschirm.mp4" controls> </video>
+                <img src="/images/winkenderPanda.jpg">
+                <img src="videos/winkenderPanda.jpg">
+                </div>
+              </div>
+              <% } %>
+            </div>
+          </div>
+        </div>        
+      </div>
+      
+    <% }} %>
+    </div></div>
+    <div class="col-md-2">
+        <h2>Bücher</h2>
+        <ul>
+          <li>Liste mit meinen Büchern </li>
+          
+        </ul>
+        <h2>wichtige Links</h2>
+        <ul>
+
+        </ul>
+    </div>
+  </div>
+
+
+<div class="footer">Trademark 2018 Groefics</div>
+
+<script src="/javascript/jQuery_3_2_1.js"></script>
+<script src="/javascript/tutorials.js"></script>
+
+<script src="/javascript/bootstrap.js"></script>
+</body>
+</html>

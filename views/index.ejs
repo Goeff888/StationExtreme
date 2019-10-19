@@ -1,115 +1,74 @@
+<!doctype html>
 <% include partials/header %>
+<body>
 <% include partials/navbarTop %>
-<h1>Startseite</h1>
 
-<div class="row">
-    <div class="col-sm-6">
-        <div class="card">
-         <div class="card-header">
-           Corel Paintshop Pro
-         </div>
-         <div class="card-body corelBody">
-           <blockquote class="blockquote mb-0">
-             <p>Alles über Corel Paintshop Pro.</p>
-             <footer class="blockquote-footer">hier gehts <a href="/corel">zur Seite</a></footer>
-           </blockquote>
-         </div>
-       </div>                
+    
+    <div class="festebreite">
+    
+        <div id="ardbild">All Areas</div>
+    
     </div>
-   <div class="col-sm-6">
-        <div class="card">
-         <div class="card-header">
-           ToDo-Liste
-         </div>
-         <div class="card-body todoBody">
-           <blockquote class="blockquote mb-0">
-             <p>Meine Aufgabensammlung</p>
-             <footer class="blockquote-footer">hier gehts <a href="/todo">zur Seite</a></footer>
-           </blockquote>
-         </div>
-       </div> 
-    </div>
-</div>
- 
- <div class="row">
-    <div class="col-sm-6">
-        <div class="card">
-         <div class="card-header">
-           CG ART
-         </div>
-         <div class="card-body cgBody">
-           <blockquote class="blockquote mb-0">
-             <p>Meine digitale Kunst als Gallerie mit Tutorials und nützlichen Infos</p>
-             <footer class="blockquote-footer">hier gehts <a href="/composition">zur Seite</a></footer>
-           </blockquote>
-         </div>
-       </div>                
-    </div>
-   <div class="col-sm-6">
-        <div class="card">
-         <div class="card-header">
-           CMS
-         </div>
-         <div class="card-body cmsBody">
-           <blockquote class="blockquote mb-0">
-             <p>Das Content Managment System zum Erstellen der Seiten</p>
-             <footer class="blockquote-footer">hier gehts <a href="/cms">zur Seite</a></footer>
-           </blockquote>
-         </div>
-       </div> 
-    </div>
-</div>
- 
- <div class="row">
-    <div class="col-sm-6">
-        <div class="card">
-         <div class="card-header ">
-           Media
-         </div>
-         <div class="card-body mediaBody">
-           <blockquote class="blockquote mb-0">
-             <p>Meine Bilder, Pdf, Audio,...</p>
-             <footer class="blockquote-footer">hier gehts <a href="/media">zur Seite</a></footer>
-           </blockquote>
-         </div>
-       </div>                
-    </div>
-   <div class="col-sm-6">
-        <div class="card">
-         <div class="card-header">
-           Office
-         </div>
-         <div class="card-body officeBody">
-           <blockquote class="blockquote mb-0">
-             <p>Meine Unterlagen digitalisiert.</p>
-             <footer class="blockquote-footer">hier gehts <a href="todo.html">zur Gallerie 1 </a><a href="todo.html"> zur Gallerie 2</a></footer>
-           </blockquote>
-         </div>
-       </div> 
-    </div>
-</div>
 
-<div class="row"> 
-  <div class="col-sm-12"> 
-     <div class="card secRow">
-       <div class="card-body card-media">
-        <h5 class="card-title">HMTL-Bereich</h5>
-        <p class="card-text">Nur Javascript/CSS/HTML</p>
-        <a href="html/index.html" class="btn btn-primary">zum Bereich</a>
-       </div>
-     </div>
-  </div>
- </div>
-<div class="row"> 
-  <div class="col-sm-12"> 
-     <div class="card secRow">
-       <div class="card-body card-media">
-        <h5 class="card-title">Python</h5>
-        <p class="card-text">Die Programmiersprache Python</p>
-        <a href="python/" class="btn btn-primary">zum Bereich</a>
-       </div>
-     </div>
-  </div>
- </div>
-</div>
-<% include partials/footer %>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+            <div class="card todoBox">
+              <div class="card-body">
+                <h5 class="card-title">Was ist zu tun/Blog</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Alle Todos</h6>
+                <p class="card-text">Meine Aufgaben</p>
+                <a href="/todo" class="card-link">Aufgaben</a>
+                <a href="/todo/new" class="card-link">neue Aufgabe</a>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm">
+            <div class="card projectBox">
+              <div class="card-body">
+                <h5 class="card-title">Digitale Kunst</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Digital Painting, Photoshop, Corel Painter, Matte Painting</p>
+                <a href="/painting" class="card-link">Gallerie</a>
+                <a href="/painting/new" class="card-link">neues Bild</a>
+              </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card projectBox">
+              <div class="card-body">
+                <h5 class="card-title">3D-Visualisierung</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Cinema4D, Animation, Motion Graphics, Visual Effects</p>
+                <a href="/composition" class="card-link">Galerie</a>
+                <a href="/composition/new" class="card-link">neues Bild</a>
+              </div>
+            </div>
+        </div>
+        <div class="col-sm">
+            <div class="card projectBox">
+              <div class="card-body">
+                <h5 class="card-title">Tutorials</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                <p class="card-text">Meine Tutorialseite</p>
+                <a href="/tutorials" class="card-link">Schoolism</a>
+                <a href="" class="card-link">Greyscale</a>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+    
+
+    
+
+            
+
+    
+    
+    </div>
+    
+</body>
+</html>

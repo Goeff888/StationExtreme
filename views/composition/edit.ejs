@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>3D Visualisierungen</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Joti+One" >
+    <link href="https://fonts.googleapis.com/css?family=Arvo:400,700,700i" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/composition.css">
+</head>
+<body>
+<% include ../partials/navbarTop %>
+ <div class="row">
+    <div class="col-md-2">
+      <% include partials/magazin %>
+      <hr>
+      <% include partials/todos %>
+    </div>
+    
+    <div class="col-md-8">
+      <% if (!composition.image){ %>
+        <img src="/images/winkenderPanda.jpg" class="img-responsive img-composition">
+      <% }else{ %>
+        <img src="/images/compositions/<%= composition._id %>/<%= composition.image %>" class="img-thumbnail">
+      <% } %> 
+      <div class="caption">
+        <h4>
+          <span><%= composition.name %></span>
+          <span class="date">
+            <%= composition.created.getDate() %>.
+            <%= composition.created.getMonth() %>.
+            <%= composition.created.getYear() +1900 %>
+          </span>
+        </h4>
+        <p class="compText"><%= composition.description %></p>
+
+      <form method="post" action="/composition/<%= composition._id %>?_method=DELETE""
+        <p>
+          <button class="btn btn-primary" id="btnDelete" type="submit">
+            Bild löschen
+          </button>
+        </p>
+       </form>
+     
+        <% comments.forEach(function(comment){ %>    
+        <div class ="row">
+         <div class="col-md-8">
+          <div class="card">
+         <div class="card-header comment">
+           <%= comment.author%>
+           <span class="pull-right">10 days ago</span>
+         </div>
+          <div class="card-body">
+           <blockquote class="blockquote mb-0">
+             <p class="comment"><%= comment.comment %></p>
+             <footer class="blockquote-footer">
+              <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+               <label class="form-check-label" for="exampleRadios1">
+                 offen
+               </label>
+             </div>
+             <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+               <label class="form-check-label" for="exampleRadios2">
+                 in Arbeit
+               </label>
+             </div>
+             <div class="form-check form-check-inline">
+               <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+               <label class="form-check-label" for="exampleRadios3">
+                 erledigt
+               </label>
+             </div>
+             </footer>
+           </blockquote>
+         </div>
+       </div>
+         </div>
+        </div>
+        <% });%>
+        </div>
+        <div class="collapse" id="collapseComment">
+          <div class="card card-body">
+            <form method="post" action="/composition/<%= composition._id  %>/comments">
+              <textarea id="newComment" rows="5" cols="100" name="comment[comment]"></textarea>
+              <button class="btn btn-primary" name="comment[compositionID]" value="<%=composition._id  %>" type="submit">Speichern</button>
+            </form>
+          </div>
+        </div>
+    </div>
+    
+    <div class="col-md-2">
+      <% include partials/template %>
+      <hr>
+      <% include partials/history %>   
+    </div>
+  </div>
+
+
+<div class="footer">Trademark 2018 Groefics</div>
+
+<script src="/javascript/jQuery_3_2_1.js"></script>
+<script src="/javascript/bootstrap.js"></script>
+<script src="/javascript/composition.js"></script>
+<script src="/javascript/taskGeneral.js"></script>
+
+</body>
+</html>
